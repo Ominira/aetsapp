@@ -5,5 +5,14 @@
     "**/.*",
     "node_modules",
     "components"
-  ]
+  ],
+  "dependencies": {
+    "angular": "^1.6.9",
+    "lodash": "^4.17.5",
+    "moment": "^2.20.1"
+  },
+  "devDependencies": {
+    "jquery": "^3.3.1",
+    "angular-route": "^1.6.9"
+  }
 }
