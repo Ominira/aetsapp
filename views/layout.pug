@@ -1,7 +1,13 @@
 doctype html
 html
   head
-    title= title
+    block title
+      title etimetable
     link(rel='stylesheet', href='/stylesheets/style.css')
+    block neck
   body
-    block content
+    header(class='header')
+      h1 BellsTech AETS
+    section(class="content")
+      block content
+    block feet
