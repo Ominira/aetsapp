@@ -1,13 +1,53 @@
 doctype html
-html
+html(lang='en')
   head
+    meta(charset='utf-8')
+    meta(name='viewport' content='width=device-width, initial-scale=1, shrink-to-fit=no')
+    meta(name="author" content="Mustapha Taiwo (github:Ominira)")
+    <!-- Tell the browser it's a PWA -->
+    meta(name="mobile-web-app-capable" content="yes")
+    <!-- Tell iOS it's a PWA -->
+    meta(name="apple-mobile-web-app-capable" content="yes")
+    meta(name="theme-color" content="#ffffff")
+    meta(name="apple-mobile-web-app-title" content="BellsTech Etimetable")
+    meta(name="application-name" content="BellsTech Etimetable")
     block title
       title etimetable
+    link(rel="stylesheet", href="/vendor/bootstrap/dist/css/bootstrap.css")
+    //- link(rel="stylesheet", href="/vendor/angular-bootstrap/ui-bootstrap-csp.css")
+    link(rel="stylesheet", href="/vendor/angular-material/angular-material.css")
+    link(rel="stylesheet", href="/vendor/AngularJS-Toaster/toaster.css")
+    link(rel="stylesheet", href="/vendor/font-awesome/web-fonts-with-css/css/fontawesome-all.css")
+    link(rel="stylesheet", href="/vendor/components-font-awesome/css/fontawesome-all.css")
     link(rel='stylesheet', href='/stylesheets/style.css')
     block neck
-  body
-    header(class='header')
-      h1 BellsTech AETS
-    section(class="content")
+  body(data-ng-app='aetsApp')
+    header
+      nav(class="navbar navbar-dark bg-dark")
+        a(class="navbar-brand" href="#")
+          h3 BellsTech AETS
+
+    section(class="container")
       block content
+
+    footer
+
+    script(src="/vendor/jquery/dist/jquery.min.js")
+    script(src='/vendor/angular/angular.js')
+    script(src="/vendor/bootstrap/dist/js/bootstrap.js")
+    script(src="/vendor/angular-animate/angular-animate.js")
+    script(src="/vendor/angular-bootstrap/ui-bootstrap.js")
+    script(src="/vendor/angular-bootstrap/ui-bootstrap-tpls.js")
+    script(src="/vendor/angular-material/angular-material.js")
+    script(src="/vendor/angular-messages/angular-messages.js")
+    script(src="/vendor/angular-route/angular-route.js")
+    script(src="/vendor/angular-touch/angular-touch.js")
+    script(src="/vendor/angular-aria/angular-aria.js")
+    script(src="/vendor/AngularJS-Toaster/toaster.js")
+    script(src="/vendor/font-awesome/svg-with-js/js/fontawesome-all.js")
+    script(src="/vendor/lodash/lodash.js")
+    script(src="/vendor/moment/moment.js")
+    script(src="/vendor/moment/min/moment-with-locales.js")
+
+    script(src="/javascripts/app.js")
     block feet
