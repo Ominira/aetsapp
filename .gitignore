@@ -34,3 +34,7 @@ public/vendor/
 
 # config credentials
 config
+
+# don't ignore default config
+!config/default.json
+!config/runtime.json
