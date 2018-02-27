@@ -4,6 +4,33 @@ var favicon = require('serve-favicon');
 var logger = require('morgan');
 var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
+var config = require('config');
+const Sequelize = require('sequelize');
+
+//testing set up database connection
+var db = config.database;
+console.log("Node Env: ",process.env.NODE_ENV);
+console.log("DB Credentials: ",db);
+const sequelize = new Sequelize(db.dbname, db.username, db.password,{
+  host: db.host,
+  dialect: 'mysql',
+  operatorsAliases: false,
+  pool: {
+    max: 5,
+    min: 0,
+    acquire: 30000,
+    idle: 10000
+  }
+});
+
+sequelize
+  .authenticate()
+  .then(() => {
+    console.log('Connection to database has been established successfully.');
+  })
+  .catch(err => {
+    console.error('Unable to connect to the database:',err);
+  });
 
 var index = require('./routes/index');
 var users = require('./routes/users');
