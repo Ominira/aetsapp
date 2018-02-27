@@ -31,3 +31,6 @@ npm-debug.log
 
 public/javascripts/vendor/
 public/vendor/
+
+# config credentials
+config
