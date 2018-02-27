@@ -3,4 +3,10 @@ block title
   title etimetable - home
 block content
   h1= title
-  p Welcome to #{title}
+  p Welcome to #{otherTitle}
+  div
+    each program in programs
+      ul(class='menu')
+        li= program.program_id
+        li= program.program_desc_short
+        li= program.progam_desc_long
