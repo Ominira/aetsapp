@@ -11,13 +11,14 @@ var db        = {};
 var dbConfig = config.database;
 const sequelize = new Sequelize(dbConfig.dbname, dbConfig.username, dbConfig.password, dbConfig.config);
 
+console.log("DB COnfig: ",dbConfig);
 sequelize
   .authenticate()
   .then(() => {
     console.log('Connection to database has been established successfully.');
   })
   .catch(err => {
-    console.error('Unable to connect to the database:',err);
+    console.error('Unable to connect to the database:',err.message);
   });
 
 fs
