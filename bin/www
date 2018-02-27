@@ -29,7 +29,7 @@ models.sequelize.sync().then(function() {
    */
 
   server.listen(port, function() {
-    console.debug('Express server listening on port ' + server.address().port);
+    console.log('Express server listening on port ' + server.address().port);
   });
   server.on('error', onError);
   server.on('listening', onListening);
