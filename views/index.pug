@@ -5,8 +5,8 @@ block content
   h1= title
   p Welcome to #{otherTitle}
   div
-    each program in programs
-      ul(class='menu')
-        li= program.program_id
-        li= program.program_desc_short
-        li= program.program_desc_long
+    h3 Tables
+    hr
+    ul
+      each table in tables
+        li= table.Tables_in_db_bellstech_aets
