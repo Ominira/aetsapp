@@ -1,15 +1,15 @@
 var express = require('express');
 var router = express.Router();
-var models = require('../models').sequelize;
+var models = require('../models');
 
 /* GET home page. */
 router.get('/', function(req, res, next) {
-  models.query('SELECT * FROM db_bellstech_aets.program').then(function(programs){
-    //console.log("Programs: ",JSON.stringify(programs));
+  models.sequelize.query('SHOW TABLES').then(function(tables){
+    console.log("Tables: ",JSON.stringify(tables));
     res.render('index', { 
       title: 'Express',
-      otherTitle: 'Sequelize: Express Example',
-      programs: programs[0]
+      otherTitle: 'Trying Sequelize: Express Example',
+      tables: tables[0]
     });
   })
 });
