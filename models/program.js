@@ -5,6 +5,6 @@ module.exports = (sequelize, DataTypes) => {
   },{
       tableName: 'program'
   });
-
+  
   return Program;
 };
