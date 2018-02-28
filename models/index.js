@@ -11,7 +11,7 @@ var db        = {};
 var dbConfig = config.database;
 const sequelize = new Sequelize(dbConfig.dbname, dbConfig.username, dbConfig.password, dbConfig.config);
 
-console.log("DB COnfig: ",dbConfig);
+console.log("DB COnfig: ",dbConfig.username);
 sequelize
   .authenticate()
   .then(() => {
