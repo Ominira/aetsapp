@@ -5,6 +5,19 @@ var logger = require('morgan');
 var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
 var config = require('config');
+var passport = require('passport');
+var flash = require('connect-flash');
+var session = require('express-session');
+
+var sessConfig = {
+  secret: 'a01228848',
+  name: 'aetsapp',
+  resave: false,
+  saveUninitialized: false,
+  cookie: {
+    maxAge: 60000
+  }
+}
 
 console.log("Node Env: ",process.env.NODE_ENV);
 
@@ -26,6 +39,16 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
+
+if (app.get('env') === 'production') {
+  app.get('trust proxy', 1);//trust first proxy
+  sessConfig.cookie.secure = true; //serve secure cookies
+}
+
+app.use(session(sessConfig));
+app.use(passport.initialize());
+app.use(passport.session());
+app.use(flash());
 
 app.use('/', index);
 app.use('/users', users);
