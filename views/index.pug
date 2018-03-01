@@ -4,9 +4,21 @@ block title
 block content
   h1= title
   p Welcome to #{otherTitle}
-  div
-    h3 Tables
-    hr
-    ul
-      each table in tables
-        li= table.Tables_in_db_bellstech_aets
+  div.row
+    div.col-9
+      h3 Data Tables
+      hr
+      ul
+        each table in tables
+          li= table.Tables_in_db_bellstech_aets
+    div(class='col-3')
+      form(name='adminLoginForm', id="adminLoginForm", class="form", action="/admin/", method="post")
+        fieldset
+          legend Admin Login
+          div(class='form-group')
+            label(for="username" class="") Username
+            input(type="text", name="username", class="form-control"  id="username" aria-describedby="usernameHelp" placeholder="Enter Username")
+          div(class='form-group')
+            label(for="password" class="") Password
+            input(type="password", name="password", class="form-control"  id="password" aria-describedby="passwordHelp" placeholder="Password")
+          button(type="submit" class="btn btn-primary") Login
