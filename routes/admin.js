@@ -26,7 +26,7 @@ router.post('/', function(req, res, next){
             password: accounts.hash(loginDetails.password)
         },
         attributes:['id','name','username','isAdmin','isSuperAdmin']
-    }).then(function(user){
+    }).then(user => {
         console.log("User: ",user);
         if (!user || _.isEmpty(user)){
             return res.send({
