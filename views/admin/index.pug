@@ -4,3 +4,13 @@ block title
 block content
   h1 Admin's Dashboard
   p Welcome #{username} 
+  table.table.table-stripped
+    tr.bg-dark.text-light
+      th Program
+      th Abbreviation
+      th Description
+    each program in programs
+      tr
+        td= program.program_id
+        td= program.program_desc_short
+        td= program.program_desc_long
