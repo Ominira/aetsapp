@@ -5,7 +5,6 @@ var models = require('../models');
 /* GET home page. */
 router.get('/', function(req, res, next) {
   models.sequelize.query('SHOW TABLES').then(function(tables){
-    console.log("Tables: ",JSON.stringify(tables));
     res.render('index', { 
       title: 'Express',
       otherTitle: 'Trying Sequelize: Express Example',
