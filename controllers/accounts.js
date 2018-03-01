@@ -6,16 +6,22 @@
 
 var config = require('config'),
     _ = require('lodash'),
-    moment = require('moment'),
-    crypto = require('crypto'),
-    salt = crypto.randomBytes(128).toString('base64');
+    moment = require('moment');
+const crypto = require('crypto'),
+    secret = 'aetsapp@bellstech';
 
-var hashPassword = function (password) {
-    var key;
-    crypto.pbkdf2(password, salt, 10000, 512, function (err, derivedKey) {
-        key = derivedKey;
-    });
-    return key;
+
+const hashPassword = function (password) {
+    const hash = crypto.createHmac('sha256', secret)
+        .update(password)
+        .digest('hex');
+    console.log("hashedPassword: ",hash);
+    return hash;
+    // var key;
+    // crypto.pbkdf2(password, salt, 10000, 512, function (err, derivedKey) {
+    //     key = derivedKey;
+    // });
+    // return key;
 }
     
 var Accounts = module.exports = {
@@ -27,5 +33,6 @@ var Accounts = module.exports = {
     },
     ensureLogin: function(req, res, next) {
 
-    }
+    },
+    hash: hashPassword
 }
