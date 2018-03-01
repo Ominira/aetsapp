@@ -1,6 +1,8 @@
 var express = require('express');
 var router = express.Router();
+var _ = require('lodash');
 var models = require('../models');
+var accounts = require('../controllers/accounts');
 
 /**go to admin dashboard*/
 router.get('/', function(req, res, next){
@@ -17,9 +19,23 @@ router.get('/', function(req, res, next){
 });
 
 router.post('/', function(req, res, next){
-    //res.send(req.body);
-    var username = req.body.username;
-    res.redirect('/admin?username='+username);
+    var loginDetails = req.body;
+    models.Users.findAll({
+        where:{
+            username: loginDetails.username,
+            password: accounts.hash(loginDetails.password)
+        },
+        attributes:['id','name','username','isAdmin','isSuperAdmin']
+    }).then(function(user){
+        console.log("User: ",user);
+        if (!user || _.isEmpty(user)){
+            return res.send({
+                error: 1,
+                message: "Username or Password is incorrect"
+            });
+        }
+        res.send(user);
+    })
 });
 
 module.exports = router;
