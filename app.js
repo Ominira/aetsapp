@@ -8,14 +8,15 @@ var config = require('config');
 var passport = require('passport');
 var flash = require('connect-flash');
 var session = require('express-session');
+var models = require('./models');
 
 var sessConfig = {
   secret: 'a01228848',
-  name: 'aetsapp',
+  name: 'aetsapp.sid',
   resave: false,
   saveUninitialized: false,
   cookie: {
-    maxAge: 60000
+    maxAge: 3600000
   }
 }
 
@@ -49,6 +50,19 @@ app.use(session(sessConfig));
 app.use(passport.initialize());
 app.use(passport.session());
 app.use(flash());
+
+passport.serializeUser(function(user, done){
+  done(null, user.id);
+});
+
+passport.deserializeUser(function(id, done){
+  models.Users.findAll({
+    where:{
+      id: id
+    }
+  }).then(done);
+});
+
 
 app.use('/', index);
 app.use('/users', users);
