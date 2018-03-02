@@ -11,14 +11,12 @@ block content
       ul
         each table in tables
           li= table.Tables_in_db_bellstech_aets
-    div(class='col-3')
-      form(name='adminLoginForm', id="adminLoginForm", class="form", action="/admin/", method="post")
+    div.col-3.account-wall
+      form.form-signin(name='adminLoginForm', id="adminLoginForm", class="form", action="/admin/", method="post")
         fieldset
-          legend Admin Login
+          legend Sign in
           div(class='form-group')
-            label(for="username" class="") Username
-            input(type="text", name="username", class="form-control"  id="username" aria-describedby="usernameHelp" placeholder="Enter Username")
+            input(type="text", name="username", class="form-control"  id="username" aria-describedby="usernameHelp" placeholder="Username",required,autofocus)
           div(class='form-group')
-            label(for="password" class="") Password
-            input(type="password", name="password", class="form-control"  id="password" aria-describedby="passwordHelp" placeholder="Password")
-          button(type="submit" class="btn btn-primary") Login
+            input(type="password", name="password", class="form-control"  id="password" aria-describedby="passwordHelp" placeholder="Password", required)
+          button(type="submit" class="btn btn-primary btn-lg btn-block") Sign in
