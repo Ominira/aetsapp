@@ -6,13 +6,14 @@ var accounts = require('../controllers/accounts');
 
 /**go to admin dashboard*/
 router.get('/', function(req, res, next){
-    var name = 'John Philips';
-    if (req.query && req.query.username){
-        name = req.query.username;
+    var user = {name:"John Philips"}
+    if (!_.isEmpty(req.query)){
+        user = JSON.parse(req.query.user)[0];
     }
+    console.log("Passed User: ",user);
     models.Program.findAll({}).then(function(programs){
         res.render('admin/index',{
-            username: name,
+            user: user,
             programs: programs
         });
     })
@@ -34,7 +35,7 @@ router.post('/', function(req, res, next){
                 message: "Username or Password is incorrect"
             });
         }
-        res.send(user);
+        res.redirect('/admin?user='+JSON.stringify(user));
     })
 });
 
