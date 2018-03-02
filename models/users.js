@@ -22,6 +22,13 @@ module.exports = (sequelize, DataTypes) => {
         type: DataTypes.STRING(1000),
         allowNull: false
     },
+    email:{
+        type: DataTypes.STRING,
+        allowNull: false,
+        validate: {
+            isEmail: true
+        }
+    },
     isAdmin: {
         type: DataTypes.BOOLEAN,
         allowNull: false,
@@ -45,21 +52,37 @@ module.exports = (sequelize, DataTypes) => {
     paranoid: true
   });
 
-//   Users
-//     .create({
-//         name: 'Philips Shadey', 
-//         username: 'admin@bells',
-//         password: accounts.hash('admin'),
-//         isAdmin: true,
-//         isSuperAdmin: false,
-//         lastLogin: JSON.stringify({
-//             location: 'Bells',
-//             ipaddress: '192.168.0.2',
-//             timestamp: moment().format()
-//         })
-//     }).then(user => {
-//         console.log("User is %s and is Super Admin %s",user.get('name'),user.get('isSuperAdmin'));
-//     });
+  Users
+    .bulkCreate([{
+        name: 'Philips Shadey', 
+        username: 'admin@bells',
+        password: accounts.hash('admin'),
+        email: 'admin@bellstech.com',
+        isAdmin: true,
+        isSuperAdmin: false,
+        lastLogin: JSON.stringify({
+            location: 'Bells',
+            ipaddress: '192.168.0.2',
+            timestamp: moment().format()
+        })
+    },{
+        name: 'John Taye', 
+        username: 'superadmin@bells',
+        password: accounts.hash('superadmin'),
+        email: 'superadmin@bellstech.com',
+        isAdmin: true,
+        isSuperAdmin: true,
+        lastLogin: JSON.stringify({
+            location: 'Not Bells',
+            ipaddress: '192.168.0.1',
+            timestamp: moment().format()
+        })
+    }]).then(() => {
+        return Users.findAll();
+    }).then(users => {
+        console.log("My Users: ",users.length);
+    });
+
   Users.sync();
 
   return Users;
