@@ -1,20 +1,33 @@
 'use strict';
 module.exports = (sequelize, DataTypes) => {
   var Program = sequelize.define('Program', {
-    program_id: {
+    programId: {
       type: DataTypes.INTEGER,
-      primaryKey: true
+      primaryKey: true,
+      field: 'program_id',
+      autoIncrement: true
     },
-    program_desc_short: {
-      type: DataTypes.STRING
+    programDescriptionShort: {
+      type: DataTypes.STRING,
+      field: 'program_desc_short'
     },
-    program_desc_long: {
-      type: DataTypes.STRING
+    programDescriptionLong: {
+      type: DataTypes.STRING,
+      field: 'program_desc_long'
     }
   },{
       tableName: 'program',
       timestamps: false
   });
+
+  Program.associate = function(models) {
+    models.Program.hasMany(models.Student,{
+      foreignKey: 'studentProgram',
+      sourceKey: 'programId'
+    })
+  };
+
+  Program.sync();
 
   return Program;
 };
