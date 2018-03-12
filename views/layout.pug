@@ -22,10 +22,26 @@ html(lang='en')
     link(rel='stylesheet', href='/stylesheets/style.css')
     block neck
   body(data-ng-app='aetsApp')
-    header
-      nav.navbar.navbar-dark.bg-dark
-        a.navbar-brand(href="#")
-          h3 BellsTech AETS
+    header.header.navbar.navbar-static-top.navbar-dark.bg-dark(role="banner")
+      .container
+        .navbar-header
+          if user
+            .navbar-toggle(type="button", data-ng-click="navOpen = !navOpen")
+              .icon-bar
+              .icon-bar
+              .icon-bar
+          a.navbar-brand(href="/")
+            h2 BellsTech AETS
+        if user
+          nav.navbar-collapse(role="navigation", style="flex-basis: 40%;text-align: right")
+            ul.nav.navbar-nav.navbar-right.text-light
+              li.navbar-btn.dropdown
+                a.dropdown-toggle.text-light(data-toggle="dropdown", role="button", aria-haspopup="true", aria-expanded="false", style="display: -webkit-inline-box;cursor: pointer;")
+                  h4 #{user.username}
+                ul.dropdown-menu.customize
+                  li.dropdown-item
+                    a.text-light(href="/") 
+                      h5 Logout
 
     section.container
       block content
