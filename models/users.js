@@ -1,5 +1,5 @@
 'use strict';
-var accounts = require('../controllers/accounts');
+var auth = require('../controllers/auth');
 var moment = require('moment');
 
 module.exports = (sequelize, DataTypes) => {
@@ -56,7 +56,7 @@ module.exports = (sequelize, DataTypes) => {
 //     .bulkCreate([{
 //         name: 'Philips Shadey', 
 //         username: 'admin@bells',
-//         password: accounts.hash('admin'),
+//         password: auth.hash('admin'),
 //         email: 'admin@bellstech.com',
 //         isAdmin: true,
 //         isSuperAdmin: false,
@@ -68,7 +68,7 @@ module.exports = (sequelize, DataTypes) => {
 //     },{
 //         name: 'John Taye', 
 //         username: 'superadmin@bells',
-//         password: accounts.hash('superadmin'),
+//         password: auth.hash('superadmin'),
 //         email: 'superadmin@bellstech.com',
 //         isAdmin: true,
 //         isSuperAdmin: true,
