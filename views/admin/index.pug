@@ -2,15 +2,40 @@ extends ../layout
 block title
   title etimetable - dashboard
 block content
-  h1 Admin's Dashboard
-  p Welcome #{user.name} 
-  table.table.table-stripped
-    tr.bg-dark.text-light
-      th Program
-      th Abbreviation
-      th Description
-    each program in programs
-      tr
-        td= program.program_id
-        td= program.program_desc_short
-        td= program.program_desc_long
+  .jumbotron(style="padding: 2rem 1rem;background: none;margin: 0;")
+    h1 Dashboard
+    .row
+      p Welcome #{user.name}
+  .row.text-dark.text-center
+    .col-sm-3
+      a.text-info(href="#")
+        i.fa.fa-user.fa-5x
+        div.text-secondary
+          strong Manage Users
+    .col-sm-3
+      a.text-info(href="/admin/timetable")
+        i.fa.fa-calendar.fa-5x
+        div.text-secondary
+          strong Generate Timetable
+    .col-sm-3
+      a.text-info(href="#")
+        i.fa.fa-database.fa-5x
+        div.text-secondary
+          strong Data Management
+    .col-sm-3
+      a.text-info(href="#")
+        i.fa.fa-cogs.fa-5x
+        div.text-secondary
+          strong App Settings
+  //- hr.bg-danger
+  //- .row
+  //-   table.table.table-stripped
+  //-     tr.bg-dark.text-light
+  //-       th Program
+  //-       th Abbreviation
+  //-       th Description
+  //-     each program in programs
+  //-       tr
+  //-         td= program.programId
+  //-         td= program.programDescriptionShort
+  //-         td= program.programDescriptionLong
