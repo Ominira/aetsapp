@@ -26,13 +26,13 @@ const hashPassword = function (password) {
     // return key;
 }
     
-var Accounts = module.exports = {
+var Auth = module.exports = {
     login: function(req, res, next) {
         var loginDetails = req.body;
         models.Users.findAll({
             where:{
                 username: loginDetails.username,
-                password: Accounts.hash(loginDetails.password)
+                password: Auth.hash(loginDetails.password)
             },
             attributes:['id','name','username','isAdmin','isSuperAdmin']
         }).then(user => {
