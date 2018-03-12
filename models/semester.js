@@ -11,13 +11,10 @@ module.exports = (sequelize, DataTypes) => {
             type: DataTypes.STRING(300),
             field: 'semester_desc',
         },
-        semesterStatus: {
-            type: DataTypes.STRING,
-            field: 'semester_status',
-            validate:{
-                isIn: [['ACTIVE','INACTIVE']],
-                isUppercase: true
-            }
+        semesterCurrent: {
+            type: DataTypes.BOOLEAN,
+            field: 'semester_current',
+            defaultValue: false
         },
         semesterSession: {
             type: DataTypes.STRING,
