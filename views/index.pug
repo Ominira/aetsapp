@@ -5,13 +5,13 @@ block content
   h1= title
   p Welcome to #{otherTitle}
   div.row
-    div.col-9
+    div.col-sm-8
       h3 Data Tables
       hr
       ul
         each table in tables
           li= table.Tables_in_db_bellstech_aets
-    div.col-3.account-wall
+    div.col-sm-4.account-wall
       form.form-signin(name='adminLoginForm', id="adminLoginForm", class="form", action="/admin/", method="post")
         fieldset
           legend Sign in
