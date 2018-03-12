@@ -7,9 +7,43 @@ body {
 a {
   color: #00B7FF;
 }
+a:hover{
+  text-decoration-line: none;
+}
 
 @media (min-width: 576px) {
   .container {
     max-width: 100%;
   }
+}
+
+.row {
+	margin-right: 0;
+	margin-left: 0;
+}
+
+.dropdown-toggle::after {
+  margin-left: 0.555em;
+  vertical-align: -0.1em;
+}
+
+.header {
+  margin-bottom: 10px;
+}
+
+.dropdown-menu.customize {
+  position:absolute;
+  right:0;
+  left:auto;
+  top:50px;
+  background-color:rgba(0,0,0,0.3);
+  min-width:10.5rem;
+}
+
+.dropdown-menu.customize .dropdown-item:hover,
+.dropdown-menu.customize .dropdown-item a:hover {
+  background-color: transparent;
+  font-weight: 1000;
+  text-decoration: none;
+  color: #fff !important;
 }
