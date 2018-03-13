@@ -11,6 +11,9 @@ var app = angular.module('aetsApp',[
     'ngMaterial'
 ]);
 
-app.run(function($log){
-    $log.log("I am live");
+app.run(function($log, $rootScope, alertService){
+    if (!_.isEmpty(alertService.alerts)){
+        alertService.clear();
+    }
+    $rootScope.navOpen = false;
 });
