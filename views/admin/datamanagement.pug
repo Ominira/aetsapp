@@ -1,0 +1,19 @@
+extends ../layout
+block title
+  title etimetable - Data Management
+block content
+    .row
+        .col-sm-6
+            .card.text-white.bg-info.mb-3
+                .card-header 
+                    h3 Models
+                .card-body
+                    h5.card-title Tables From Database (As is)
+                    hr.bg-light
+                    ul
+                        each table in tables
+                            li.card-text= table.Tables_in_db_bellstech_aets
+                .card-footer MySQL Engine InnoDB, Charset utf8
+        .col-sm-6
+            .text-right
+                a.text-info(href="/admin/") Back to Dashboard
