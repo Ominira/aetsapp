@@ -47,3 +47,12 @@ a:hover{
   text-decoration: none;
   color: #fff !important;
 }
+
+.icon-bar{
+  background-color: #fff;
+}
+
+.flash {
+  width: 100%;
+  text-align: center;
+}
