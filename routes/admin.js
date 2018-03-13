@@ -4,12 +4,13 @@ var _ = require('lodash');
 var models = require('../models');
 var auth = require('../controllers/auth');
 
+const defaultUser = {
+    name: "Azzahra Ominira",
+    username: "default@bells"
+};
 /**go to admin dashboard*/
 router.get('/', function(req, res, next){
-    var user = {
-        name:"Default User",
-        username: "default@bells"
-    }
+    var user = defaultUser;
     if (!_.isEmpty(req.query)){
         user = JSON.parse(req.query.user)[0];
     }
@@ -23,32 +24,22 @@ router.get('/', function(req, res, next){
 });
 
 router.post('/', function(req, res, next){
-    var loginDetails = req.body;
-    models.Users.findAll({
-        where:{
-            username: loginDetails.username,
-            password: auth.hash(loginDetails.password)
-        },
-        attributes:['id','name','username','email','isAdmin','isSuperAdmin']
-    }).then(user => {
-        console.log("User: ",user);
-        if (!user || _.isEmpty(user)){
-            return res.send({
-                error: 1,
-                message: "Username or Password is incorrect"
-            });
-        }
-        res.redirect('/admin?user='+JSON.stringify(user));
-    })
+    
 });
 
 router.get('/timetable', function(req, res, next) {
     res.render('admin/timetable',{
-        user: {
-            name: 'csfsfsf',
-            username: 'default@bells'
-        }
+        user: defaultUser
     });
-})
+});
+
+router.get('/datamanagement', function(req, res, next) {
+    models.sequelize.query('SHOW TABLES').then(function(tables){
+        res.render('admin/datamanagement', {    
+            tables: tables[0],
+            user: defaultUser
+        });
+    });
+});
 
 module.exports = router;
