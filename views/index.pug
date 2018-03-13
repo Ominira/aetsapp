@@ -1,22 +1,40 @@
 extends layout
 block title
-  title etimetable - home
+  title etimetable - #{title}
 block content
-  h1= title
-  p Welcome to #{otherTitle}
+  .row
+    .col-sm-12
+      hr.bg-danger
+      hr.bg-warning
+      hr.bg-info
+      hr.bg-dark
+      hr.bg-secondary
+      hr.bg-primary
+      hr.bg-light
   div.row
-    div.col-sm-8
-      h3 Data Tables
-      hr
-      ul
-        each table in tables
-          li= table.Tables_in_db_bellstech_aets
-    div.col-sm-4.account-wall
-      form.form-signin(name='adminLoginForm', id="adminLoginForm", class="form", action="/admin/", method="post")
+    div.col-sm-9
+      hr.bg-danger
+      hr.bg-warning
+      hr.bg-info
+      hr.bg-dark
+      hr.bg-secondary
+      hr.bg-primary
+      hr.bg-light
+    div.col-sm-3.account-wall
+      form.form-signin(name='adminLoginForm', id="adminLoginForm", class="form", action="/", method="post")
         fieldset
           legend Sign in
           div(class='form-group')
             input(type="text", name="username", class="form-control"  id="username" aria-describedby="usernameHelp" placeholder="Username",required,autofocus)
           div(class='form-group')
             input(type="password", name="password", class="form-control"  id="password" aria-describedby="passwordHelp" placeholder="Password", required)
-          button(type="submit" class="btn btn-primary btn-lg btn-block") Sign in
+          button(type="submit" class="btn btn-info btn-lg btn-block") Sign in
+  .row
+    .col-sm-12
+      hr.bg-danger
+      hr.bg-warning
+      hr.bg-info
+      hr.bg-dark
+      hr.bg-secondary
+      hr.bg-primary
+      hr.bg-light
