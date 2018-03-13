@@ -38,7 +38,7 @@ app.set('view engine', 'pug');
 app.use(logger('dev'));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
-app.use(cookieParser());
+app.use(cookieParser(sessConfig.secret));
 app.use(express.static(path.join(__dirname, 'public')));
 
 if (app.get('env') === 'production') {
