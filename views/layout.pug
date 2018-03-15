@@ -23,7 +23,7 @@ html(lang='en')
     block neck
   body(data-ng-app='aetsApp')
     header.header.navbar.navbar-static-top.navbar-dark.bg-dark(role="banner")
-      .container
+      .container-fluid
         .navbar-header
           if user
             .navbar-toggle(type="button", data-ng-click="navOpen = !navOpen")
@@ -44,7 +44,7 @@ html(lang='en')
                       h5 Logout
 
     section
-      .container
+      .container-fluid
         .row
           - console.log(infoMessage)
           .flash.col-xs-12(data-ng-controller="AlertCtrl", data-ng-cloak)
