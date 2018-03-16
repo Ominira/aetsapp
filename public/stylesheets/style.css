@@ -11,12 +11,14 @@ a:hover{
   text-decoration-line: none;
 }
 
-@media (min-width: 576px) {
+/* @media (min-width: 576px) {
   .container {
     max-width: 100%;
   }
+} */
+.toast-top-full-width {
+  top: 72px;
 }
-
 .row {
 	margin-right: 0;
 	margin-left: 0;
@@ -29,6 +31,10 @@ a:hover{
 
 .header {
   margin-bottom: 10px;
+}
+
+.carousel-control-prev, .carousel-control-next {
+  width: 10%;
 }
 
 .dropdown-menu.customize {
