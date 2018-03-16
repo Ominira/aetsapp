@@ -18,7 +18,8 @@
     "font-awesome": "^5.0.6",
     "angular-material": "^1.1.7",
     "angular-touch": "^1.6.9",
-    "moment-timezone": "^0.5.14"
+    "moment-timezone": "^0.5.14",
+    "moment-recur": "^1.0.7"
   },
   "devDependencies": {
     "jquery": "^3.3.1",

@@ -55,6 +55,7 @@ html(lang='en')
                   button(type="button" class="close" data-dismiss="alert" aria-label="Close")
                     span(aria-hidden="true") &times;
             div(uib-alert, ng-repeat="alert in alerts", ng-class="'alert-' + (alert.type || 'warning')", close="closeAlert($index)") {{alert.msg}}
+        toaster-container(toaster-options="{'close-button': true,'position-class': 'toast-top-full-width','time-out':15000}")
         block content
 
     footer
@@ -74,6 +75,7 @@ html(lang='en')
     script(src="/vendor/font-awesome/svg-with-js/js/fontawesome-all.js")
     script(src="/vendor/lodash/lodash.js")
     script(src="/vendor/moment/moment.js")
+    script(src="/vendor/moment-recur/moment-recur.js")
     script(src="/vendor/moment/min/moment-with-locales.js")
 
     script(src="/javascripts/app.js")
