@@ -2,14 +2,65 @@ extends ../layout
 block title
     title etimetable - generate
 block content
-    .row
-        .col-sm-6
-            .card.text-white.bg-info.mb-3
-                .card-header Something Here
-                .card-body 
-                    h4 Something also here
-                    p In the body
-                .card-footer Something at the footer
-        .col-sm-6
-            .text-right
+    .row(data-ng-controller="TimetableCtrl")
+        .col-sm-3
+            .text-left
                 a.text-info(href="/admin/") Back to Dashboard
+            .card
+                .card-body
+                    h5.card-title Semester
+                    h6.card-subtitle.mb-2.text-muted Current Semester
+                    p.card-text Current Semester as described active in the model will appear here
+            .card
+                .card-body
+                    h5.card-title Examination Date Slots
+                    hr.bg-info
+                    h6.card-subtitle.mb-2.text-muted Start Date
+                    p.card-text.input-group
+                        input.form-control(type="text", name="dt.startDate", uib-datepicker-popup="{{format}}" data-ng-model="dt.startDate" is-open="startDatePop.opened" datepicker-options="dateOptions" ng-required="true" close-text="Close" alt-input-formats="altInputFormats")
+                        span.input-group-btn
+                            button.btn.btn-info(type="button", data-ng-click="openStartDate()")
+                                i.fa.fa-calendar
+                    h6.card-subtitle.mb-2.text-muted End Date
+                    p.card-text.input-group
+                        input.form-control(type="text", name="dt.endDate", uib-datepicker-popup="{{format}}" data-ng-model="dt.endDate" is-open="endDatePop.opened" datepicker-options="dateOptions" ng-required="true" close-text="Close" alt-input-formats="altInputFormats")
+                        span.input-group-btn
+                            button.btn.btn-info(type="button", data-ng-click="openEndDate()")
+                                i.fa.fa-calendar
+            .card
+                .card-body
+                    h5.card-title Examination Time Slots
+                    hr.bg-info
+                    p.card-text
+                        button.btn.btn-info.btn-block(type="button", data-ng-click="generateTimeSlots()") Generate Calendar Time Slots
+        .col-sm-9(data-ng-cloak)
+            .card.border-light.mb-3
+                .card-header 
+                .card-body
+                    .card-text(data-ng-if="calendarTimeSlots.length")
+                        .carousel.slide#timeSlotsCarousel(data-wrap="false")
+                            .carousel-inner
+                                .carousel-item.text-center(data-ng-repeat="slots in calendarTimeSlots", data-ng-class="{'active': $index == 0}")
+                                    .card.border-info(style="margin: 0 10%")
+                                        .card-header.bg-transparent.border-success(data-ng-bind="slots.calendarDatePretty")
+                                        .card-body.text-info(data-ng-class="{'bg-light': slots.calendarWeekend}" data-ng-disabled="slots.calendarWeekend")
+                                            h5.card-title {{slots.calendarMonth}}, Week {{slots.calendarMonthWeek}}
+                                            h6.card-subtitle.mb-2.text-muted {{slots.calendarDay}}&nbsp;{{slots.calendarDate}}
+                                            p.card-text
+                                                h5 TODO: Time Slots Allocation
+                                        .card-footer.bg-transparent.border-info
+                                            pre.alert.alert-info Time is: {{mytime | date:'shortTime' }}
+                                    //-h4(data-ng-bind="slots.calendarDatePretty")
+                                    //-img.d-block.w-100(src="data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%22800%22%20height%3D%22400%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%20800%20400%22%20preserveAspectRatio%3D%22none%22%3E%3Cdefs%3E%3Cstyle%20type%3D%22text%2Fcss%22%3E%23holder_1622fe85865%20text%20%7B%20fill%3A%23555%3Bfont-weight%3Anormal%3Bfont-family%3AHelvetica%2C%20monospace%3Bfont-size%3A40pt%20%7D%20%3C%2Fstyle%3E%3C%2Fdefs%3E%3Cg%20id%3D%22holder_1622fe85865%22%3E%3Crect%20width%3D%22800%22%20height%3D%22400%22%20fill%3D%22%23777%22%3E%3C%2Frect%3E%3Cg%3E%3Ctext%20x%3D%22285.921875%22%20y%3D%22217.7%22%3EFirst%20slide%3C%2Ftext%3E%3C%2Fg%3E%3C%2Fg%3E%3C%2Fsvg%3E" alt="{{slots.calendarDate}}")
+                            a.carousel-control-prev.bg-light(href="#timeSlotsCarousel", role="button", data-slide="prev")
+                                span.carousel-control-prev-icon(aria-hidden="true")
+                                    span.sr-only Previous
+                            a.carousel-control-next.bg-light(href="#timeSlotsCarousel", role="button", data-slide="next")
+                                span.carousel-control-next-icon(aria-hidden="true")
+                                    span.sr-only Next
+                    .card-text.text-center(data-ng-if="!calendarTimeSlots.length")
+                        span Examination Calendar Date Time Slots will load here
+                        hr.bg-info
+                .card-footer
+block feet
+    script(src="/javascripts/controllers/timetable.js")
