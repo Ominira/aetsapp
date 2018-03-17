@@ -6,7 +6,7 @@ angular.module('aetsApp')
             $scope.dt = {
                 startDate: new Date(),
                 endDate: new Date(),
-            }
+            };
             
             $scope.inlineOptions = {
                 customClass: getDayClass,
@@ -122,6 +122,6 @@ angular.module('aetsApp')
 
                 $log.log("Dates: ",dates);
                 $scope.calendarTimeSlots = dates;
-            }
+            };
         }
     ]);

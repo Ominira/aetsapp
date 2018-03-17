@@ -4,7 +4,7 @@ var _ = require('lodash');
 var models = require('../models');
 var auth = require('../controllers/auth');
 
-const defaultUser = {
+var defaultUser = {
     name: "Azzahra Ominira",
     username: "default@bells"
 };
@@ -20,7 +20,7 @@ router.get('/', function(req, res, next){
             user: user,
             programs: programs
         });
-    })
+    });
 });
 
 router.post('/', function(req, res, next){
