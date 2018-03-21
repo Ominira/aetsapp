@@ -93,37 +93,75 @@
               $scope.ismeridian = true;
   
               $scope.calendarTimeSlots = [];
+              var publicHoliday = [
+                '30/03/2018',
+                '02/04/2018',
+                '01/05/2018',
+                '29/05/2018'
+              ];
+
+              $scope.generateCalendarSlots = function() {
+                if(!_.isEmpty($scope.calendarTimeSlots)){
+                  $scope.calendarTimeSlots = [];
+                }
+
+                var startDate = moment($scope.dt.startDate);
+                var endDate = moment($scope.dt.endDate);
+
+                if (startDate.isAfter(endDate)) {
+                  toaster.pop({
+                    type: "error",
+                    title: "Calendar Slot Error!",
+                    body:
+                      "Examination Calendar Start Date cannot be after Examination End Date!"
+                  });
+                  return;
+                }
+
+                var now = startDate.clone(),
+                  dates = [];
+
+                while (now.isSameOrBefore(endDate)) {
+                  dates.push({
+                    calendar: now,
+                    calendarDay: now.format("dddd"),
+                    calendarDate: now.format("DD/MM/YYYY"),
+                    calendarDateShort: now.format("D/M/YY"),
+                    calendarDatePretty: now.format( "dddd Do of MMMM, YYYY"),
+                    calendarMonth: now.format("MMMM"),
+                    calendarMonthWeek: Math.ceil(now.date() / 7),
+                    calendarWeekend: _.includes(["Saturday", "Sunday"],now.format("dddd")),
+                    dayIsFriday: _.eq('Friday',now.format('dddd')),
+                    dayIsPublicHoliday: _.includes(publicHoliday, now.format('DD/MM/YYYY')),
+                    timeSlots: []
+                  });
+                  now.add(1, "days");
+                }
+
+                $log.log("Dates: ", dates);
+                $scope.calendarTimeSlots = dates;
+              };
+              
               $scope.generateTimeSlots = function () {
-                  var startDate = moment($scope.dt.startDate);
-                  var endDate = moment($scope.dt.endDate);
-  
-                  if(startDate.isAfter(endDate)){
-                      toaster.pop({
-                          type: 'error',
-                          title: 'Calendar Slot Error!',
-                          body: 'Examination Calendar Start Date cannot be after Examination End Date!'
-                      });
-                      return;
-                  }
-  
-                  var now = startDate.clone(), dates = [];
-  
-                  while (now.isSameOrBefore(endDate)) {
-                      dates.push({
-                          calendar: now,
-                          calendarDay: now.format('dddd'),
-                          calendarDate: now.format('DD/MM/YYYY'),
-                          calendarDatePretty: now.format('dddd Do of MMMM, YYYY'),
-                          calendarMonth: now.format('MMMM'),
-                          calendarMonthWeek: Math.ceil(now.date() / 7),
-                          calendarWeekend: (_.includes(['Saturday','Sunday'],now.format('dddd'))),
-                          timeSlots: []
-                      });
-                      now.add(1, 'days');
-                  }
-  
-                  $log.log("Dates: ",dates);
-                  $scope.calendarTimeSlots = dates;
+                if (_.isEmpty($scope.calendarTimeSlots)) {
+                  toaster.pop({
+                    type: "warning",
+                    title: 'Time Slots Error',
+                    body: 'You need to generate calendar dates slots first'
+                  });
+                  console.log("Warning You!!");
+                  return;
+                }
+
+                var fillTimeSlots  = function (slot) {
+                  var timeOnMondaytoThursday = ['9am - 12pm','12:30pm - 3:30pm','4pm - 7pm'];
+                  var timeOnFriday = ['9am - 12pm','4pm - 7pm'];
+                  slot.timeSlots = (_.eq(slot.calendarDay,'Friday')? timeOnFriday : timeOnMondaytoThursday);
+                  return slot;
+                };
+
+                $scope.calendarTimeSlots = _.map($scope.calendarTimeSlots, fillTimeSlots);
+                console.log("Times: ",$scope.calendarTimeSlots);
               };
           }
       ]);
