@@ -33,8 +33,36 @@ a:hover{
   margin-bottom: 10px;
 }
 
-.carousel-control-prev, .carousel-control-next {
-  width: 10%;
+#timeSlotsCarousel .carousel-control-prev,
+#timeSlotsCarousel .carousel-control-next {
+  width: 5%;
+}
+
+#timeSlotsCarousel .carousel-inner {
+  margin-bottom: 1rem;
+}
+
+.customize-carousel-indicator {
+  bottom: -2rem;
+  margin: 0 0;
+  box-sizing: border-box;
+  overflow-x: auto;
+  overflow-y: hidden;
+}
+.customize-carousel-indicator li{
+  text-indent: 0;
+  width: 25px;
+  height: 20px;
+  font-size: 10pt;
+  font-weight: 700;
+  text-align: center;
+  cursor: pointer;
+  color: #fff;
+  background: #17a2b8;
+}
+
+.customize-carousel-indicator li.active {
+  color: #000;
 }
 
 .dropdown-menu.customize {
