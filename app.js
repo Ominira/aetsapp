@@ -11,21 +11,22 @@ var session = require('express-session');
 var models = require('./models');
 
 var sessConfig = {
-  secret: 'a01228848',
-  name: 'aetsapp.sid',
-  resave: false,
-  saveUninitialized: false,
-  cookie: {
-    maxAge: 3600000
-  }
-}
+    secret: 'a01228848',
+    name: 'aetsapp.sid',
+    resave: false,
+    saveUninitialized: false,
+    cookie: {
+        maxAge: 3600000
+    }
+};
 
-console.log("Node Env: ",process.env.NODE_ENV);
+console.log("Node Env: ", process.env.NODE_ENV);
 
 
 var index = require('./routes/index');
 var users = require('./routes/users');
 var admin = require('./routes/admin');
+var resource = require('./routes/resource');
 
 var app = express();
 
@@ -42,8 +43,8 @@ app.use(cookieParser(sessConfig.secret));
 app.use(express.static(path.join(__dirname, 'public')));
 
 if (app.get('env') === 'production') {
-  app.get('trust proxy', 1);//trust first proxy
-  sessConfig.cookie.secure = true; //serve secure cookies
+    app.get('trust proxy', 1); //trust first proxy
+    sessConfig.cookie.secure = true; //serve secure cookies
 }
 
 app.use(session(sessConfig));
@@ -51,39 +52,40 @@ app.use(passport.initialize());
 app.use(passport.session());
 app.use(flash());
 
-passport.serializeUser(function(user, done){
-  done(null, user.id);
+passport.serializeUser(function(user, done) {
+    done(null, user.id);
 });
 
-passport.deserializeUser(function(id, done){
-  models.Users.findAll({
-    where:{
-      id: id
-    }
-  }).then(done);
+passport.deserializeUser(function(id, done) {
+    models.Users.findAll({
+        where: {
+            id: id
+        }
+    }).then(done);
 });
 
 
 app.use('/', index);
 app.use('/users', users);
 app.use('/admin', admin);
+app.use('/resource', resource);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
-  var err = new Error('Not Found');
-  err.status = 404;
-  next(err);
+    var err = new Error('Not Found');
+    err.status = 404;
+    next(err);
 });
 
 // error handler
 app.use(function(err, req, res, next) {
-  // set locals, only providing error in development
-  res.locals.message = err.message;
-  res.locals.error = req.app.get('env') === 'development' ? err : {};
+    // set locals, only providing error in development
+    res.locals.message = err.message;
+    res.locals.error = req.app.get('env') === 'development' ? err : {};
 
-  // render the error page
-  res.status(err.status || 500);
-  res.render('error');
+    // render the error page
+    res.status(err.status || 500);
+    res.render('error');
 });
 
 module.exports = app;
