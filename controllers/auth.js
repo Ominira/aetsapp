@@ -1,57 +1,58 @@
-/**
- * Author: Mustapha Taiwo
- */
+(function(params) {
 
-'use strict';
+    /**
+     * @author: Mustapha Taiwo
+     */
 
-var config = require('config'),
-    _ = require('lodash'),
-    moment = require('moment');
-const crypto = require('crypto'),
-    secret = 'aetsapp@bellstech';
+    'use strict';
+
+    const config = require('config'),
+        _ = require('lodash'),
+        moment = require('moment');
+    const crypto = require('crypto'),
+        secret = 'aetsapp@bellstech';
 
 
-//##APP
-var models = require('../models');
+    //##APP
+    const models = require('../models');
 
-const hashPassword = function (password) {
-    const hash = crypto.createHmac('sha256', secret)
-        .update(password)
-        .digest('hex');
-    return hash;
-    // var key;
-    // crypto.pbkdf2(password, salt, 10000, 512, function (err, derivedKey) {
-    //     key = derivedKey;
-    // });
-    // return key;
-}
-    
-var Auth = module.exports = {
-    login: function(req, res, next) {
+    let Auth = {};
+    Auth.hash = function(password) {
+        const hash = crypto.createHmac('sha256', secret)
+            .update(password)
+            .digest('hex');
+        return hash;
+    };
+    Auth.login = function(req, res, next) {
         var loginDetails = req.body;
-        models.Users.findAll({
-            where:{
+        return models.Users.findAll({
+            where: {
                 username: loginDetails.username,
                 password: Auth.hash(loginDetails.password)
             },
-            attributes:['id','name','username','isAdmin','isSuperAdmin']
+            attributes: ['id', 'name', 'username', 'isAdmin', 'isSuperAdmin']
         }).then(user => {
-            console.log("User: ",user);
-            if (!user || _.isEmpty(user)){
-                return res.send({
-                    error: 1,
+            console.log("User: ", JSON.stringify(user));
+            if (!user || _.isEmpty(user)) {
+                return {
+                    status: 1,
                     message: "Username or Password is incorrect"
-                });
+                };
             }
-            res.send(user);
-        })
+            user = JSON.stringify(user);
+            return {
+                status: 0,
+                data: JSON.parse(user)
+            };
+        }, function(err) {
+            return {
+                status: 2,
+                message: err
+            };
+        });
+    };
+    Auth.logout = function(req, res, next) {};
+    Auth.ensureLogin = function(req, res, next) {};
 
-    },
-    logout: function(req, res, next) {
-
-    },
-    ensureLogin: function(req, res, next) {
-
-    },
-    hash: hashPassword
-}
+    module.exports = Auth;
+})();
