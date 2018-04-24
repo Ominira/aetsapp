@@ -23,12 +23,6 @@ var sessConfig = {
 
 console.log("Node Env: ", process.env.NODE_ENV);
 
-
-// var index = require('./routes/index');
-// var users = require('./routes/users');
-// var admin = require('./routes/admin');
-// var resource = require('./routes/resource');
-
 var app = express();
 
 // view engine setup
@@ -89,10 +83,6 @@ app.use(function(req, res, next) {
 });
 
 app.use(require('./routes'));
-// app.use('/', index);
-// app.use('/users', users);
-// app.use('/admin', auth.ensureLogin, admin);
-// app.use('/resource', resource);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
