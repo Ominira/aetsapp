@@ -9,6 +9,7 @@ var passport = require('passport');
 var flash = require('connect-flash');
 var session = require('express-session');
 var models = require('./models');
+//var auth = require('./controllers/auth');
 
 var sessConfig = {
     secret: 'a01228848',
@@ -23,10 +24,10 @@ var sessConfig = {
 console.log("Node Env: ", process.env.NODE_ENV);
 
 
-var index = require('./routes/index');
-var users = require('./routes/users');
-var admin = require('./routes/admin');
-var resource = require('./routes/resource');
+// var index = require('./routes/index');
+// var users = require('./routes/users');
+// var admin = require('./routes/admin');
+// var resource = require('./routes/resource');
 
 var app = express();
 
@@ -39,7 +40,7 @@ app.set('view engine', 'pug');
 app.use(logger('dev'));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
-app.use(cookieParser(sessConfig.secret));
+app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
 if (app.get('env') === 'production') {
@@ -57,18 +58,41 @@ passport.serializeUser(function(user, done) {
 });
 
 passport.deserializeUser(function(id, done) {
-    models.Users.findAll({
+    models.Users.findOne({
         where: {
             id: id
         }
     }).then(done);
 });
 
+// store user in session
+app.use(function(req, res, next) {
+    if (req.session && req.session.user) {
+        models.Users.findOne({
+                where: {
+                    email: req.session.user.email
+                }
+            })
+            .then(function(user) {
+                if (user) {
+                    req.user = JSON.parse(JSON.stringify(user));
+                    delete req.user.password; // delete the password from the session
+                    req.session.user = user; //refresh the session value
+                    res.locals.user = user;
+                }
+                // finishing processing the middleware and run the route
+                return next();
+            });
+    } else {
+        return next();
+    }
+});
 
-app.use('/', index);
-app.use('/users', users);
-app.use('/admin', admin);
-app.use('/resource', resource);
+app.use(require('./routes'));
+// app.use('/', index);
+// app.use('/users', users);
+// app.use('/admin', auth.ensureLogin, admin);
+// app.use('/resource', resource);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
@@ -76,6 +100,7 @@ app.use(function(req, res, next) {
     err.status = 404;
     next(err);
 });
+
 
 // error handler
 app.use(function(err, req, res, next) {

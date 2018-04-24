@@ -4,45 +4,48 @@
         "fullname": "Bellstech Automated Examination Timetabling System",
         "shortname": "Bellstech AETS",
         "webname": "etimetable"
-	},
-	"winston": {
-		"Console": {
-			"level": "debug"
-		},
-		"File": [
-			{
-		      	"name": "debug-file",
-		      	"filename": "logs/filelog-debug.log",
-		      	"level": "debug"
-    		}
-		],
-		"Mail": {
-			"to":["mustytaiwo@gmail.com"],
-			"host": "smtp.gmail.com",
-			"port": 587,
-			"username": "",
-			"password": "",
-			"subject": "Bellstech aetsapp critical report",
-			"tls": true,
-			"level": "critical"
-		}
     },
-    "database":{
+    "winston": {
+        "Console": {
+            "level": "debug"
+        },
+        "File": [{
+            "name": "debug-file",
+            "filename": "logs/filelog-debug.log",
+            "level": "debug"
+        }],
+        "Mail": {
+            "to": ["mustytaiwo@gmail.com"],
+            "host": "smtp.gmail.com",
+            "port": 587,
+            "username": "",
+            "password": "",
+            "subject": "Bellstech aetsapp critical report",
+            "tls": true,
+            "level": "critical"
+        }
+    },
+    "database": {
         "host": "",
         "port": "3306",
         "username": "",
         "password": "",
-        "dbname":"db_bellstech_aets",
+        "dbname": "db_bellstech_aets",
         "config": {
             "host": "127.0.0.1",
             "dialect": "mysql",
             "operatorsAliases": false,
             "pool": {
-              "max": 5,
-              "min": 0,
-              "acquire": 30000,
-              "idle": 10000
+                "max": 5,
+                "min": 0,
+                "acquire": 30000,
+                "idle": 10000
             }
         }
+    },
+    "hash": {
+        "secret": "",
+        "algorithm": "",
+        "digest": ""
     }
 }

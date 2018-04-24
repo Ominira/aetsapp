@@ -1,7 +1,7 @@
 'use strict';
 
 module.exports = (sequelize, DataTypes) => {
-    var Semester = sequelize.define('Semester',{
+    var Semester = sequelize.define('Semester', {
         semesterId: {
             type: DataTypes.CHAR(11),
             primaryKey: true,
@@ -20,26 +20,30 @@ module.exports = (sequelize, DataTypes) => {
             type: DataTypes.STRING,
             field: 'semester_session'
         }
-    },{
+    }, {
         tableName: 'semester',
         timestamp: false
     });
 
-    Semester.associate = function (models) {
-        models.Semester.belongsToMany(models.Student,{
+    Semester.associate = function(models) {
+        models.Semester.belongsToMany(models.Student, {
             through: models.CourseRegistration,
             as: 'RegSemStudent',
             foreignKey: 'registeredSemester',
             otherKey: 'registeredStudent'
         });
-        models.Semester.belongsToMany(models.Course,{
+        models.Semester.belongsToMany(models.Course, {
             through: models.CourseRegistration,
             as: 'RegSemCourse',
             foreignKey: 'registeredSemester',
             otherKey: 'registeredCourse'
         });
-        models.Semester.hasMany(models.CourseRegistrationStrength,{
+        models.Semester.hasMany(models.CourseRegistrationStrength, {
             foreignKey: 'semester',
+            sourceKey: 'semesterId'
+        });
+        models.Semester.hasMany(models.CalendarEvents, {
+            foreignKey: 'eventSemester',
             sourceKey: 'semesterId'
         });
     };

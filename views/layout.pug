@@ -40,13 +40,12 @@ html(lang='en')
                   h4 #{user.username}
                 ul.dropdown-menu.customize
                   li.dropdown-item
-                    a.text-light(href="/") 
+                    a.text-light(href="/logout") 
                       h5 Logout
 
     section
       .container-fluid
         .row
-          - console.log(infoMessage)
           .flash.col-xs-12(data-ng-controller="AlertCtrl", data-ng-cloak)
             if infoMessage
               while info = infoMessage.info.shift()

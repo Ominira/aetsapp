@@ -1,43 +1,46 @@
-'use strict';
+(function() {
 
-var fs        = require('fs');
-var path      = require('path');
-var Sequelize = require('sequelize');
-var basename  = path.basename(__filename);
-var env       = process.env.NODE_ENV || 'development';
-var config = require('config');
-var db        = {};
+    'use strict';
 
-var dbConfig = config.database;
-const sequelize = new Sequelize(dbConfig.dbname, dbConfig.username, dbConfig.password, dbConfig.config);
+    var fs = require('fs');
+    var path = require('path');
+    var Sequelize = require('sequelize');
+    var basename = path.basename(__filename);
+    var env = process.env.NODE_ENV || 'development';
+    var config = require('config');
+    var db = {};
 
-console.log("DB COnfig: ",dbConfig.username);
-sequelize
-  .authenticate()
-  .then(() => {
-    console.log('Connection to database has been established successfully.');
-  })
-  .catch(err => {
-    console.error('Unable to connect to the database:',err.message);
-  });
+    var dbConfig = config.database;
+    const sequelize = new Sequelize(dbConfig.dbname, dbConfig.username, dbConfig.password, dbConfig.config);
 
-fs
-  .readdirSync(__dirname)
-  .filter(file => {
-    return (file.indexOf('.') !== 0) && (file !== basename) && (file.slice(-3) === '.js');
-  })
-  .forEach(file => {
-    var model = sequelize['import'](path.join(__dirname, file));
-    db[model.name] = model;
-  });
+    console.log("DB COnfig: ", dbConfig.username);
+    sequelize
+        .authenticate()
+        .then(() => {
+            console.log('Connection to database has been established successfully.');
+        })
+        .catch(err => {
+            console.error('Unable to connect to the database:', err.message);
+        });
 
-Object.keys(db).forEach(modelName => {
-  if (db[modelName].associate) {
-    db[modelName].associate(db);
-  }
-});
+    fs
+        .readdirSync(__dirname)
+        .filter(file => {
+            return (file.indexOf('.') !== 0) && (file !== basename) && (file.slice(-3) === '.js');
+        })
+        .forEach(file => {
+            var model = sequelize['import'](path.join(__dirname, file));
+            db[model.name] = model;
+        });
 
-db.sequelize = sequelize;
-db.Sequelize = Sequelize;
+    Object.keys(db).forEach(modelName => {
+        if (db[modelName].associate) {
+            db[modelName].associate(db);
+        }
+    });
 
-module.exports = db;
+    db.sequelize = sequelize;
+    db.Sequelize = Sequelize;
+
+    module.exports = db;
+})();

@@ -3,8 +3,8 @@ block title
     title etimetable - generate
 block content
     .row(data-ng-controller="TimetableCtrl")
-        .col-sm-3
-            .text-left
+        .card-deck.col-12
+            .card.text-left
                 a.text-info(href="/admin/") Back to Dashboard
             .card
                 .card-body
@@ -31,11 +31,17 @@ block content
                         button.btn.btn-info.btn-block(type="button", data-ng-click="generateCalendarSlots()") Generate Slots
             .card
                 .card-body
-                    h5.card-title Examination Time Slots
+                    h5.card-title Calendar Actions
                     hr.bg-info
                     p.card-text
                         button.btn.btn-info.btn-block(type="button", data-ng-click="generateTimeSlots()") Generate Time Slots
-        .col-sm-9(data-ng-cloak)
+                    p.card-text
+                        button.btn.btn-info.btn-block(type="button", data-ng-click="generateCourses()") Assign Course to Slots
+                    p.card-text
+                        button.btn.btn-info.btn-block(type="button", data-ng-click="getVenues()") Assign Venues to Slots
+                    p.card-text
+                        button.btn.btn-info.btn-block(type="button", data-ng-click="getVenues()" disabled) Assign Invigilators
+        .col-12(data-ng-cloak)
             .card.border-light.mb-3
                 .card-header 
                 .card-body
@@ -77,7 +83,7 @@ block content
                                                             td
                                                                 button.btn.btn-success(type='button', data-ng-click="assignVenue(slots, time)") Assign
                                                             td
-                                                                button.btn.btn-danger(type='button', data-ng-click="assignInvigilators(slots, time)") Assign
+                                                                button.btn.btn-danger(type='button', data-ng-click="assignInvigilators(slots, time)" disabled) Assign
 
                                         .card-footer.bg-transparent
                                             

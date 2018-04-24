@@ -44,12 +44,8 @@
                     return course;
                 });
                 res.send(courses);
-            }, function(err) {
-                console.error("Getting Course Error: ", err);
-            })
-            .catch(ex => {
-                console.error("Some Exceptions Getting Course: ", ex);
-            });
+            }, (err) => console.error("Getting Course Error: ", err))
+            .catch(ex => console.error("Some Exceptions Getting Course: ", ex));
     };
 
     module.exports = Resource;
